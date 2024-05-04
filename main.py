@@ -23,19 +23,24 @@ def validar_cadena(cadena): #funcion para validar que la cadena cumple con los r
     cadena = re.sub(r'\t+',"",cadena) #eliminar las sangrías 
     cadena = re.split(r'[\b]',cadena)    
     cadena = re.split(r'\n+',cadena[0])
-    print(cadena)
     pila = []
+    count = 0
     for i in range(0,len(cadena)-1,1):
         if re.match(r'\bwhile\b\([a-z0-9](==|<|<=|>|>=|!=)[a-z0-9]\){$',cadena[i]):
+            count += 1
             pila.append("{")
         if re.match(r'\bwhile\b\([a-z0-9](==|<|<=|>|>=|!=)[a-z0-9]\){}',cadena[i]):
+            count += 1
             pass
         elif re.match(r'}$',cadena[i]):
+            count += 1
             try:
                 pila.pop()
             except:
-                pila.append('}')      
-        print(pila) 
+                pila.append('}')
+        if count == 0:
+            return print("Cadena Invalida") 
+        count = 0  
     if pila:
         return print("Cadena Invalida")
     cadena = (" ").join(cadena)
