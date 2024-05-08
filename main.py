@@ -19,31 +19,54 @@ def variables_diferentes(condicion):
     print("Hay un total de "+str(len(comparacion))+" operadores de comparación")
 
 def validar_cadena(cadena): #funcion para validar que la cadena cumple con los requisitos de los while loops y del proyecto
-    cadena = re.sub(r"[ ]", "",cadena) #eliminar los espacios en blanco del texto
-    cadena = re.sub(r'\t+',"",cadena) #eliminar las sangrías 
-    cadena = re.split(r'[\b]',cadena)    
-    cadena = re.split(r'\n+',cadena[0])
-    pila = []
-    count = 0
-    for i in range(0,len(cadena)-1,1):
-        if re.match(r'\bwhile\b\([a-z0-9](==|<|<=|>|>=|!=)[a-z0-9]\){$',cadena[i]):
-            count += 1
-            pila.append("{")
-        if re.match(r'\bwhile\b\([a-z0-9](==|<|<=|>|>=|!=)[a-z0-9]\){}',cadena[i]):
-            count += 1
-            pass
-        elif re.match(r'}$',cadena[i]):
-            count += 1
-            try:
+    cadena = re.sub(r'\b'+'while'+r'\b',r'\g<0> ',cadena)
+    cadena = re.sub(r'\(',r'\g<0> ',cadena)
+    cadena = re.sub(r'\)',r' \g<0> ',cadena)
+    cadena = re.sub(r'==|<=?|>=?|!=',r' \g<0> ',cadena)
+    cadena = re.sub(r'[\t]', " ",cadena) #eliminar los espacios en blanco del texto
+    cadena = re.sub(r'[\n]', " ",cadena)
+    cadena = list(filter(None, re.split(r' ', cadena, flags=re.IGNORECASE)))
+    pila = ['T']
+    for token in cadena:
+        print(token)
+        if re.match(r'^while$',token):
+            if pila[-1] == 'T':
+                pila.append('W')
+            elif pila[-1] == '{':
+                pila.append('W')
+        if re.match(r'^\($',token):
+            if pila[-1] == 'W':
                 pila.pop()
-            except:
-                pila.append('}')
-        if count == 0:
-            return print("Cadena Invalida") 
-        count = 0  
-    if pila:
+                pila.append('(')
+            elif pila[-1] == 'C':
+                pila.pop()
+                pass
+        if re.match(r'^\)$',token):
+            if pila[-1] == '(':
+                pila.pop()
+                pila.append('F')
+        if re.match(r'^[a-z0-9]$',token):
+            if pila[-1] == '(':
+                pila.append('A')
+            elif pila[-1] == 'C':
+                pila.pop()
+        if re.match(r'^\{$',token):
+            if pila[-1] == 'F':
+                pila.pop()
+                pila.append('{')
+        if re.match(r'^\}$',token):
+            if pila[-1] == '{':
+               pila.pop()
+        if re.match(r'^==|<=?|>=?|!=$',token):
+            if pila[-1] == 'A':
+                pila.pop()
+                pila.append('C')
+        print(pila)   
+    if pila.pop() != 'T':
         return print("Cadena Invalida")
     cadena = (" ").join(cadena)
+    cadena = re.sub(r'\s*',"",cadena)
+    print(cadena)
     condicion = re.findall(r'([a-z0-9]+[==|<|<=|>|>=|!=]+[a-z0-9])',cadena) #buscar todas las declaraciones condicionales de los while
     whiles = re.findall(r'\b' + "while"+ r'\b',cadena)
     variables_diferentes(condicion)
