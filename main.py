@@ -68,13 +68,13 @@ def validar_cadena(cadena):
                 pila.append('W')
             else:
                 return print("Cadena Invalida")
-        """
-        Si el elemento coincide con un parentesis abierto checamos cual es el ultimo elemento
-        del automata de pila, si encontramos 'W' hacemos pop a la pila y añadimos '(' al arreglo.
-        Si encontramos una 'C' unicamente hacemos pop a la pila. Si hay algo más en el automata de pila
-        rechazamos la producción
-        """
         else:
+            """
+            Si el elemento coincide con un parentesis abierto checamos cual es el ultimo elemento
+            del automata de pila, si encontramos 'W' hacemos pop a la pila y añadimos '(' al arreglo.
+            Si encontramos una 'C' unicamente hacemos pop a la pila. Si hay algo más en el automata de pila
+            rechazamos la producción
+            """   
             if re.match(r'^\($',token):
                 if pila[-1] == 'W':
                     pila.pop()
@@ -83,24 +83,25 @@ def validar_cadena(cadena):
                     pila.pop()
                 else:
                     return print("Cadena Invalida")
-            """
-            Si el elemento coincide con un parentesis cerrado checamos cual es el último elemento
-            del automata de pila, si encontramos un '(' le hacemos pop a la pila y agregamos 'F', 
-            en cualquier otro caso rechazamos la producción.
-            """
             else:
+                """
+                Si el elemento coincide con un parentesis cerrado checamos cual es el último elemento
+                del automata de pila, si encontramos un '(' le hacemos pop a la pila y agregamos 'F', 
+                en cualquier otro caso rechazamos la producción.
+                """
                 if re.match(r'^\)$',token):
                     if pila[-1] == '(':
                         pila.pop()
                         pila.append('F')
                     else:
                         return print("Cadena Invalida")
-                """ 
-                Si el elemento coincide con alguna letra minuscula o un número de un solo digito checamos
-                el último elemento del automata de pila, si encontramos un '(' entonces añadimos 'A' a la pila,
-                si encontramos una 'C' entonces le hacemos pop a la pila unicamente. En caso contrario rechazamos la producción.
-                """
-                else: 
+                
+                else:
+                    """ 
+                    Si el elemento coincide con alguna letra minuscula o un número de un solo digito checamos
+                    el último elemento del automata de pila, si encontramos un '(' entonces añadimos 'A' a la pila,
+                    si encontramos una 'C' entonces le hacemos pop a la pila unicamente. En caso contrario rechazamos la producción.
+                    """
                     if re.match(r'^[a-z0-9]$',token):
                         if pila[-1] == '(':
                             pila.append('A')
@@ -108,36 +109,36 @@ def validar_cadena(cadena):
                             pila.pop()
                         else:
                             return print("Cadena Invalida")
-                    """
-                    Si el elemento coincide con un corchete abierto checamos el último valor del automata de pila.
-                    Si encontramos una 'F' le hacemos pop a la pila y agregamos un '{', en caso contrario rechazamos
-                    la producción
-                    """
                     else:
+                        """
+                        Si el elemento coincide con un corchete abierto checamos el último valor del automata de pila.
+                        Si encontramos una 'F' le hacemos pop a la pila y agregamos un '{', en caso contrario rechazamos
+                        la producción
+                        """
                         if re.match(r'^\{$',token):
                             if pila[-1] == 'F':
                                 pila.pop()
                                 pila.append('{')
                             else:
                                 return print("Cadena Invalida")
-                        """ 
-                        Si el elemento coincide con un corchete cerrado checamos el último valor del automata de pila.
-                        Si encontramos un '{' entonces le hacemos pop a la pila, en caso contrario rechazamos la 
-                        producción
-                        """
                         else:
+                            """ 
+                            Si el elemento coincide con un corchete cerrado checamos el último valor del automata de pila.
+                            Si encontramos un '{' entonces le hacemos pop a la pila, en caso contrario rechazamos la 
+                            producción
+                            """
                             if re.match(r'^\}$',token):
                                 if pila[-1] == '{':
                                     pila.pop()
                                 else:
                                     return print("Cadena Invalida")
-                            """
-                            Si el elemento coincide con uno de los signos de comparación checamos el último valor del automata de pila
-                            si encontramos una 'A' entonces hacemos pop a la pila y agregamos una 'C'. En caso contrario rechazamos
-                            la producción. Si al final el elemento no coincidio con ninguno de los elementos que checamos igual se
-                            rechaza la producción
-                            """
                             else:
+                                """
+                                Si el elemento coincide con uno de los signos de comparación checamos el último valor del automata de pila
+                                si encontramos una 'A' entonces hacemos pop a la pila y agregamos una 'C'. En caso contrario rechazamos
+                                la producción. Si al final el elemento no coincidio con ninguno de los elementos que checamos igual se
+                                rechaza la producción
+                                """
                                 if re.match(r'^==|<=?|>=?|!=$',token):
                                     if pila[-1] == 'A':
                                         pila.pop()
@@ -145,18 +146,18 @@ def validar_cadena(cadena):
                                     else:
                                         return print("Cadena Invalida")
                                 else:
+                                    """
+                                    Si al final de la iteración el último elemento de la pila no es el Tope 
+                                    significa que se usaron los elementos correctos en las declaraciones
+                                    pero no se implementaron de manera correcta por lo que rechazamos la producción.
+                                    """
                                     return print("Cadena Invalida")
-    """
-    Si al final de la iteración el último elemento de la pila no es el Tope 
-    significa que se usaron los elementos correctos en las declaraciones
-    pero no se implementaron de manera correcta por lo que rechazamos la producción.
-    """
     if pila.pop() != 'T':
         return print("Cadena Invalida")
     """
     Ya que la cadena ha sido validada convertimos el arreglo en un texto de nuevo y 
-    eliminamos todos los espacios para así encontrar todos los signos de comparación y 
-    todos los whiles declarados
+    eliminamos todos los espacios para así encontrar todos los signos de comparación 
+    y todos los whiles declarados
     """
     cadena = (" ").join(cadena)
     cadena = re.sub(r'\s*',"",cadena)
@@ -167,13 +168,18 @@ def validar_cadena(cadena):
 
 
 try: 
-    filename = sys.argv[1] """ Tomar el parametro de la linea de comandos """
+    """ Tomar el parametro de la linea de comandos """
+    filename = sys.argv[1] 
     try:
-        with open(filename, 'r') as file:  """ Leer el archivo y guardar en una variable """
+        """ Leer el archivo y guardar en una variable """
+        with open(filename, 'r') as file:  
             cadena = file.read() 
     except:
-        print("Ingresa un archivo de texto porfavor") """ Si no se detecta un archivo de texto se imprime un mensaje de error """
+        """ Si no se detecta un archivo de texto se imprime un mensaje de error """
+        print("Ingresa un archivo de texto porfavor") 
 except:
-    print("Ingresa un archivo de texto como parametro porfavor") """ Si no se detecta un parametro se imprime un mensaje de error """
-validar_cadena(cadena) """ Validar que la cadena cumple con los requisitos de un while """
+    """ Si no se detecta un parametro se imprime un mensaje de error """
+    print("Ingresa un archivo de texto como parametro porfavor") 
+""" Validar que la cadena cumple con los requisitos de un while """
+validar_cadena(cadena) 
 
