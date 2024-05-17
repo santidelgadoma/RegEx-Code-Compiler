@@ -6,6 +6,7 @@ El objetivo de este proyecto es construir un reconocedor sencillo de enunciados 
 - Leer datos de entrada: el programa debe leer datos de entrada que consisten en un conjunto de bloques while sintácticamente correctos. El formato específico de los datos de entrada debe definirse claramente.
 -	Determinar la validez de los bloques while: el programa debe analizar cada bloque while y determinar si cumple con las reglas sintácticas definidas para las sentencias while en el lenguaje de programación elegido.
 -	Generar estadísticas: el programa debe generar un conjunto de estadísticas relacionadas con las condiciones de prueba de cada sentencia while analizada. Estas estadísticas incluyen, por ejemplo, el número total de variables (diferentes) usadas en todos los while encontrados, el número total de operadores de comparación encontrados (con repeticiones) y el número total de while's que contienen los bloques parseados.
+-	En la siguiente imagen se puede ver el automata de pila que se usó. Se encarga de rechazar los errores de sintaxis o conteo de corchetes o parentesis.
 ![imagen1](https://github.com/179786-moises/p2/blob/main/p1.jpg)
 ## Forma de uso
 ### Prerrequisitos:
