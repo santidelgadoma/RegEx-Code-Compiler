@@ -43,6 +43,8 @@ def validar_cadena(cadena):
     cadena = re.sub(r'\b'+'while'+r'\b',r'\g<0> ',cadena) 
     cadena = re.sub(r'\(',r'\g<0> ',cadena) 
     cadena = re.sub(r'\)',r' \g<0> ',cadena) 
+    cadena = re.sub(r'\{',r' \g<0> ',cadena)
+    cadena = re.sub(r'\}',r' \g<0> ',cadena)
     cadena = re.sub(r'==|<=?|>=?|!=',r' \g<0> ',cadena)
     cadena = re.sub(r'[\t]', " ",cadena) 
     cadena = re.sub(r'[\n]', " ",cadena)
@@ -52,10 +54,12 @@ def validar_cadena(cadena):
     """
     
     cadena = list(filter(None, re.split(r' ', cadena, flags=re.IGNORECASE)))
+    print(cadena)
     """ Creamos el automata de pila, incializandolo con el tope como primer elemento """
     pila = ['T']
     """ Iteramos sobre el arreglo de elementos del texto """
     for token in cadena:
+        print(token)
         """
         Si el elemento coincide con la palabra 'while' checamos cual es el último
         elemento del automata de pila, si es el Tope o un corchete abierto
@@ -152,6 +156,7 @@ def validar_cadena(cadena):
                                     pero no se implementaron de manera correcta por lo que rechazamos la producción.
                                     """
                                     return print("Cadena Invalida")
+            print(pila)
     if pila.pop() != 'T':
         return print("Cadena Invalida")
     """
@@ -182,4 +187,3 @@ except:
     print("Ingresa un archivo de texto como parametro porfavor") 
 """ Validar que la cadena cumple con los requisitos de un while """
 validar_cadena(cadena) 
-
