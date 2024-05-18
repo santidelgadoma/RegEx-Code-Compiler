@@ -8,13 +8,13 @@ El objetivo de este proyecto es construir un reconocedor sencillo de enunciados 
 -	Generar estadísticas: el programa debe generar un conjunto de estadísticas relacionadas con las condiciones de prueba de cada sentencia while analizada. Estas estadísticas incluyen, por ejemplo, el número total de variables (diferentes) usadas en todos los while encontrados, el número total de operadores de comparación encontrados (con repeticiones) y el número total de while's que contienen los bloques parseados.
 -	Nosotros consideramos que para que un enunciado while sea correcto, debe tener la siguiente estructura: la palabra while, seguido de un paréntesis que abre, dentro del cual se coloca una variable o constante, seguido de un signo de comparación, y luego otra variable o constante, cerrando con un paréntesis. A esto le sigue una llave que abre, dentro de la cual puede haber otra estructura while o simplemente una llave que cierra.
   ### Ejemplos aceptados:
-  while(x < 9){
-    while(6 > y){}
-  }
+  while(x < 9){  
+    while(6 > y){}  
+  }  
   ### Ejemplo no aceptado:
-  while(8 < i)
-    while(j > l){
-    }
+  while(8 < i)  
+    while(j > l){  
+    }  
 -	En la siguiente imagen se puede ver el automata de pila que se usó. Se encarga de rechazar los errores de sintaxis o conteo de corchetes o parentesis.
 ![imagen1](https://github.com/179786-moises/p2/blob/main/p1.jpg)
 ## Forma de uso
