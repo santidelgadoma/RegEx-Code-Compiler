@@ -12,7 +12,7 @@ El objetivo de este proyecto es construir un reconocedor sencillo de enunciados 
       while(6 > y){}  
   }  
   ### Ejemplo no aceptado:
-  while(8 < i) {
+  while(8 < i) {  
       while(j > l)  
       }  
 -	En la siguiente imagen se puede ver el automata de pila que se usó. Se encarga de rechazar los errores de sintaxis o conteo de corchetes o parentesis.
