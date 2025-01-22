@@ -1,4 +1,4 @@
-# Proyecto2
+# RegEx-Code-Compiler
 ## Descripción del problema
 El proyecto tiene como objetivo construir un reconocedor sencillo de enunciados while bien formados de un lenguaje de programación. El programa debe leer los datos de entrada, que consisten en un conjunto de bloques while sintácticamente correctos, y debe determinar si el conjunto de bloques es aceptado o rechazado como correcto. Además, el programa debe generar una serie de estadísticas relacionadas con las condiciones de prueba de cada while.
 ## Objetivo del proyecto
